@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 		
 		
 		<!-- 메인 해더 -->
-		
+		<c:import url="/WEB-INF/views/includes/main-header.jsp"></c:import>
 		
 		<div id="loginForm">
 			<form method="post" action="${pageContext.request.contextPath}/user/login">
@@ -33,7 +34,9 @@
 		      		</tr> 
 		      		<tr>
 		      			<td colspan="2" id="tdMsg" colspan="2">
-		      				<span>아이디 또는 비번을 확인해 주세요.</span>
+		      				<c:if test="${param.result=='fail'}">
+								<span>아이디 또는 비밀번호를 확인해 주세요</span><!-- 파라미터 result에 fail이 있는지없느지 -->
+							</c:if>
 		      			</td>
 		      		</tr> 
 		      	</table>
@@ -46,7 +49,7 @@
 		</div>
 		
 		<!-- 메인 푸터  자리-->
-		
+		<c:import url="/WEB-INF/views/includes/main-footer.jsp"></c:import>
 		
 	</div>
 	
