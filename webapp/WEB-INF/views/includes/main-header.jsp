@@ -5,7 +5,7 @@
 			<img class="logo" src="${pageContext.request.contextPath}/assets/images/logo.jpg">
 		</a>
 		<c:choose>
-			<c:when test="${sessionScope.loginUser.userName == null}">
+			<c:when test="${sessionScope.loginUser == null}">
 				<ul class="menu">
 					<!-- 로그인 전 메뉴 -->
 					<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
@@ -13,10 +13,10 @@
 		 		</ul>
 		 	</c:when>
 			<c:otherwise>
-		 		<ul>
+		 		<ul class="menu">
 					<!-- 로그인 후 메뉴 -->
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.request.contextPath}/${id}">내블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/${sessionScope.loginUser.id}">내블로그</a></li>
 		 		</ul>
 		 	</c:otherwise>
 	 	</c:choose>

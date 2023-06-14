@@ -7,9 +7,11 @@
 	<select id="selectUser"  parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
 			select userNo,
-    userName
-from users
-where id = #{id} and password = #{password}
+				id,
+    			userName,
+    			password
+				from users
+			where id = #{id} and password = #{password}
 		]]>
 	</select>
 

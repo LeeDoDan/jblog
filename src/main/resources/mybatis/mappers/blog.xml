@@ -3,16 +3,54 @@
 
 <mapper namespace="blog">
 
-	<!-- 내블로그 기본설정 작성 -->
-	<insert id="insertBlog" parameterType="com.javaex.vo.BlogVo">
-	    <![CDATA[
-			insert into blog
-				values(#{id},					
-						#{blogTitle},
-						#{logoFile}
-				)
-	     ]]>
-	</insert>   
-	
+    <!-- 메인 블로그 정보 가져오기 -->
+	 <select id="selectMain" parameterType="String" resultType="com.javaex.vo.BlogVo">
+      <![CDATA[
+         select b.id,
+                b.blogTitle,
+                b.logoFile,
+                u.userName
+         from blog b
+         join users u
+         on b.id = u.id
+         where b.id = #{blogId}
+      ]]>
+     </select>   
+ <!-- 메인 리스트 (cate) -->
+	 <select id="selectCateList" parameterType="String" resultType="com.javaex.vo.CategoryVo">
+      <![CDATA[
+         select cateNo,
+                id,
+                cateName,
+                description,
+                regDate 
+         from category 
+         where id = #{blogId}
+      ]]>
+     </select>
+     
+     <!-- 메인 리스트 (post) -->
+	 <select id="selectPostList" parameterType="String" resultType="com.javaex.vo.PostVo">
+      <![CDATA[
+		 select p.postNo,
+		        p.cateNo,
+		        p.postTitle,
+		        p.postContent,
+		        p.regDate
+	 	 from post p
+		 left join category c  
+		 on p.cateNo = c.cateNo
+		 where c.id = #{blogId}
+      ]]>
+     </select>
+     
+    <!-- 내블로그 베이직 업데이트 -->
+    <update id="updateBasic" parameterType="com.javaex.vo.BlogVo">
+		<![CDATA[
+			update blog set blogTitle = #{blogTitle},
+		                    logoFile = #{logoFile}
+		    where id = #{id}  
+		  ]]>
+	</update>
 
 </mapper>

@@ -32,7 +32,7 @@ public class UserService {
         // Blog 정보 삽입
         BlogVo blogVo = new BlogVo();
         blogVo.setUserNo(userVo.getUserNo());
-        blogDao.insertBlog(blogVo);
+        //blogDao.insertBlog(blogVo);
         // Category 정보 삽입
         CategoryVo categoryVo = new CategoryVo();
         categoryVo.setCateName("Default Category");
