@@ -11,7 +11,9 @@ public class CategoryDao {
     @Autowired
     private SqlSession sqlSession;
     
-    public void insertCategory(CategoryVo categoryVo) {
-        sqlSession.insert("category.insertCategory", categoryVo);
+    //카테고리 추가
+    public void insert(CategoryVo categoryVo) {
+    	System.out.println("CategoryDao.insert()");
+        sqlSession.insert("category.insert", categoryVo);
     }
 }

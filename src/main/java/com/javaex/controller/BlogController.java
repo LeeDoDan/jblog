@@ -44,33 +44,16 @@ public class BlogController {
 	}
 	
 	//내블로그 베이직설정 업데이트
-	@RequestMapping(value="{id}/admin/basicModify", method = RequestMethod.POST)
-	public String blogBasicModify(@PathVariable("id") String id,
-            				@RequestParam("blogTitle") String blogTitle,
-            				@RequestParam("file") MultipartFile file,
-            				@ModelAttribute BlogVo blogVo, HttpSession session,Model model ) {
+	@RequestMapping(value="/admin/basicModify", method = RequestMethod.POST)
+	public String blogBasicModify(@PathVariable("id") String id, @ModelAttribute BlogVo blogVo,
+			@RequestParam("file") MultipartFile file) {
 		System.out.println("BlogController.blogAdminBasicModify()");
-		UserVo loginUser = (UserVo)session.getAttribute("loginUser");
-		Map<String, Object> blogMap = blogService.blogBasicModify(id, blogVo, file);
-		model.addAttribute("blogMap",blogMap);
-		System.out.println(blogMap);		
-		return "blog/admin/blog-admin-basic";
+		if(file.getOriginalFilename() == "") {
+			blogService.blogBasicModify(blogVo);
+		}else {
+			blogService.blogBasicModify(file, blogVo);
+		}
+		return "redirect:/"+id+"/admin/basic";
 	}
-	
-	//내블로그 카테고리 폼
-	@RequestMapping(value="/{id}/admin/category", method = {RequestMethod.GET, RequestMethod.POST})
-	public String blogAdminCate(@PathVariable("id")String id) {
-		System.out.println("BlogController.blogAdminCate()");
-		return "blog/admin/blog-admin-cate";
-	}
-	
-	//내블로그 글 작성 폼
-	@RequestMapping(value="/{id}/admin/writeForm", method = {RequestMethod.GET, RequestMethod.POST})
-	public String blogAdminWrite(@PathVariable("id")String id, Model model) {
-		System.out.println("BlogController.blogAdminWriteForm()");
-		//blogService.addWrite(null);
-		return "/blog/admin/blog-admin-write";
-	}
-
 	
 }

@@ -22,10 +22,8 @@
 				<div id="profile">
 					
 					<!-- 기본이미지 -->
-					<img id="proImg" src="${pageContext.request.contextPath}/upload/${requestScope.blogVo.logoFile}">
+					<img id="proImg" src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}">
 					
-					<!-- 사용자업로드 이미지 -->
-					<%-- <img id="proImg" src="${pageContext.request.contextPath }/upload/${galleryList.saveName}"> --%>
 					
 					<div id="nick">${sessionScope.loginUser.userName}님</div>
 				</div>
@@ -44,7 +42,7 @@
 			
 			<div id="post_area">
 				
-				<div id="postBox" class="clearfix">
+				<!--<div id="postBox" class="clearfix">
 						<div id="postTitle" class="text-left"><strong>08.페이징</strong></div>
 						<div id="postDate" class="text-left"><strong>2020/07/23</strong></div>
 						<div id="postNick">${sessionScope.loginUser.userName}님</div>
@@ -57,7 +55,7 @@
 				<!-- //post -->
 				
 				<!-- 글이 없는 경우 -->
-				<!-- 
+				
 				<div id="postBox" class="clearfix">
 							<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
 							<div id="postDate" class="text-left"><strong></strong></div>
@@ -66,7 +64,7 @@
 			    
 				<div id="post" >
 				</div>
-				-->
+				
 				
 				<div id="list">
 					<div id="listTitle" class="text-left"><strong>카테고리의 글</strong></div>
@@ -76,10 +74,10 @@
 							<col style="width: 20%;">
 						</colgroup>
 						
-						<tr>
+						<!--<tr>
 							<td class="text-left"><a href="">08.페이징</a></td>
 							<td class="text-right">2020/07/23</td>
-						</tr>
+						</tr>-->
 
 						
 						

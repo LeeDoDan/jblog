@@ -36,7 +36,7 @@ public class UserService {
         // Category 정보 삽입
         CategoryVo categoryVo = new CategoryVo();
         categoryVo.setCateName("Default Category");
-        categoryDao.insertCategory(categoryVo);
+        categoryDao.insert(categoryVo);
 		return count;
 	}
 	

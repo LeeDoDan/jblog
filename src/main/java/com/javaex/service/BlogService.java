@@ -41,15 +41,10 @@ public class BlogService {
 		return blogMap;
 	}
 	
-	
-	String saveDir = "C:\\javaStudy\\upload";
-	
-	//내블로그 베이직설정 수정
-	public Map<String, Object> blogBasicModify(String id, BlogVo blogVo, MultipartFile file) {
-        // 파일 업로드(사용자 파일 복사 - 하드디스크 저장)
-        if(!file.isEmpty()) {//
-        	blogDao.updateBasic(blogVo);
-        }else {
+	//내블로그 베이직설정 수정(logoFile)
+	public void blogBasicModify(MultipartFile file, BlogVo blogVo) {
+		String saveDir = "C:\\javaStudy\\upload";
+		if(!file.isEmpty()){//파일이 없지 않으면
             System.out.println("BlogService.blogBasicModify()");;
             // 원 파일 이름
             String orgName = file.getOriginalFilename();
@@ -59,6 +54,9 @@ public class BlogService {
             String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
             // 파일패스 (어느 경로에 어떤 이름으로)
             String filePath = saveDir + "\\" + saveName;
+            // 저장 경로 VO 저장
+            blogVo.setLogoFile(saveName);
+    		//파일 업로드
             try {
                 byte[] fileData = file.getBytes();
                 OutputStream out = new FileOutputStream(filePath);
@@ -68,16 +66,17 @@ public class BlogService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            // 파일 업로드 후 basic 정보 업데이트
-            blogVo.setLogoFile(saveName);
-            blogDao.updateBasic(blogVo);
-        }
-        Map<String, Object> blogMap = new HashMap<>();
-        return blogMap;
-        /*SEVERE: 경로 [/jblog]의 컨텍스트 내의 서블릿 [spring]을(를) 위한 Servlet.service() 호출이, 근본 원인(root cause)과 함께, 예외 [Request processing failed; nested exception is org.springframework.jdbc.UncategorizedSQLException: Error setting null for parameter #2 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property. Cause: java.sql.SQLException: 부적합한 열 유형: 1111
-; uncategorized SQLException for SQL []; SQL state [99999]; error code [17004]; 부적합한 열 유형: 1111; nested exception is java.sql.SQLException: 부적합한 열 유형: 1111]을(를) 발생시켰습니다.
-java.sql.SQLException: 부적합한 열 유형: 1111*/
-    }
-
+            
+            BlogVo vo = new BlogVo(blogVo.getId(), blogVo.getBlogTitle(), saveName);
+    		int count = blogDao.updateBasic(vo);
+    		System.out.println(count);
+		}
+	}
+	//내블로그 베이직설정 수정(logofile없을때)
+	public void blogBasicModify(BlogVo blogVo) {
+		System.out.println("BlogService.modify()1");
+		BlogVo vo = new BlogVo(blogVo.getId(), blogVo.getBlogTitle(), blogVo.getLogoFile());
+		blogDao.updateBasic(vo);
+	}
 	
 }
